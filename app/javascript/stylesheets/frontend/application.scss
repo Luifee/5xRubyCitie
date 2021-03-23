@@ -1,0 +1,56 @@
+@import 'bulma-carousel';
+
+
+//index
+nav {
+  .navbar-brand {
+    margin-top: 1em;
+  }
+  .input {
+    width: 28em;
+  }
+}
+
+section.subscribe {
+  margin-top: 1em;
+  height: 160px;
+  line-height: 80px;
+}
+
+section.sitemap {
+  margin-top: 2em;
+  div.column {
+    li {
+      line-height: 20px;
+      margin-bottom: 1em;
+      font-size: 80%;
+      .tel {
+        font-size: 125%;
+      }
+    }
+  }
+}
+
+section.footer {
+  display: flex;
+  div {
+    font-size: 80%;
+    line-height: 20px;
+    i {
+      margin-left: 1em;
+    }
+  }
+}
+
+
+//product
+
+section.product {
+  margin-top: 1em;
+}
+
+section.registration, section.session {
+  div.field {
+    margin-bottom: 2em;
+  }
+}
