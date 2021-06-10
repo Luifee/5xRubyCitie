@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MyCloneCitiesocial</title>
+    <title>MyCloneCitiesocial - 管理介面</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="turbolinks-cache-control" content="no-cache">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'backend', 'data-turbolinks-track': 'reload' %>
     <%= yield :head %>
   </head>
 
   <body>
     <%= render 'shared/flash' if notice %>
-    <%= render 'shared/frontend/navbar' %>
-    <%= render 'shared/frontend/tabs' %>
+    <%= render 'shared/backend/navbar' %>
     <%= yield %>
-    <%= render 'shared/frontend/footer_map' %>
-    <%= render 'shared/frontend/footer' %>
+    <%= render 'shared/backend/footer_map' %>
   </body>
 </html>
