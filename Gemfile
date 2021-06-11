@@ -63,7 +63,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'foreman', '~> 0.87.1'
   gem 'hirb-unicode', '~> 0.0.5'
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
+  gem 'rexml', '~> 3.2', '>= 3.2.5'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   gem 'faker', '~> 2.11'
   gem 'pry-rails', '~> 0.3.9'
