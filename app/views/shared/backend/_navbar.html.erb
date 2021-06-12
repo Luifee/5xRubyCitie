@@ -1,8 +1,8 @@
 <div class="container">
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <%= link_to "citie", root_path, class: 'title has-text-weight-semibold' %>
-    <%= link_to "social", root_path, class: 'title has-text-weight-light' %>
+    <%= link_to "citie", admin_root_path, class: 'is-size-3 has-text-weight-semibold has-text-dark' %>
+    <%= link_to "social", admin_root_path, class: 'is-size-3 has-text-weight-light has-text-dark' %>
 
   <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
     <span aria-hidden="true"></span>
@@ -11,17 +11,9 @@
   </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-menu">
     <div class="navbar-start">
-    </div>
-
-    <div class="navbar-item field has-addons">
-      <div class="control">
-        <input class="input" type="text" placeholder="搜尋好東西">
-      </div>
-      <div class="control">
-        <a class="button"><i class="fas fa-search"></i></a>
-      </div>
+      <%= link_to "廠商", admin_vendors_path, class: 'navbar-item' %>
     </div>
 
     <div class="navbar-end">

@@ -15,7 +15,10 @@
   <body>
     <%= render 'shared/flash' if notice %>
     <%= render 'shared/backend/navbar' %>
-    <%= yield %>
-    <%= render 'shared/backend/footer_map' %>
+    <div class='container'>
+      <%= yield %>
+      <%= render 'shared/backend/footer_map' %>
+    </div>
+    <%= render 'shared/backend/footer' %>
   </body>
 </html>
