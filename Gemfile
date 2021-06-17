@@ -30,6 +30,7 @@ gem 'omniauth', '~> 2.0', '>= 2.0.3'
 gem 'omniauth-google-oauth2', '~> 1.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'figaro', '~> 1.2'
+gem 'paranoia', '~> 2.4', '>= 2.4.3'
 
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
