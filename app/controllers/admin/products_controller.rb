@@ -48,6 +48,7 @@ class Admin::ProductsController < Admin::BaseController
 				    :list_price, 
 				    :sell_price, 
 				    :specification, 
+				    :description,
 				    :on_sell)
   end
 

@@ -42,5 +42,14 @@
     <%= form.label :on_sell, '是否上架？', class: 'checkbox' %>
   </div>
 
+  <div class="columns">
+    <div class="column is-12">
+      <div class="field">
+        <%= form.label :description, '商品詳情', class: 'label' %>
+        <%= form.rich_text_area :description, class: 'input is-medium' %>
+      </div>
+    </div>
+  </div>
+
   <%= form.submit class: 'button is-primary is-medium' %>
 <% end %>
