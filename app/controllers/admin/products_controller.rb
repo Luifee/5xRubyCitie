@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::BaseController
   before_action :find_product, only: [:edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.includes(:vendor)
   end
 
   def new
@@ -25,7 +25,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     if @product.update(product_params)
-      redirect_to admin_products_path, notice: '商品資料已更新'
+      redirect_to edit_admin_product_path(@product), notice: '商品資料已更新'
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def find_product
-    @product = Product.find(params[:id])
+    @product = Product.friendly.find(params[:id])
   end
 
   def product_params

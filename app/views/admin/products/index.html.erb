@@ -4,26 +4,22 @@
   <table class="table is-fullwidth">
   <thead>
     <tr>
-      <th>商品名</th>
+      <th>商品名稱</th>
       <th>供應商</th>
-      <th>上架狀態</th>
-      <th>定價</th>
-      <th>售價</th>
+      <th>售價 / 定價</th>
+      <th>銷售狀態</th>
       <th>商品規格</th>
-      <th>更新時間</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
   <% @products.each do |product| %>
     <tr>
-      <td><%= link_to product.name, edit_admin_product_path(product) %></td>
-      <td><%= product.vendor_id %></td>
+      <td><span class="is-size-7">[商品編號：<%= product.code %> ]</span><br /><%= link_to "#{product.name}", edit_admin_product_path(product) %></td>
+      <td><%= product.vendor.title %></td>
+      <td><%= product.sell_price %> / <%= product.list_price %></td>
       <td><%= product.on_sell %></td>
-      <td><%= product.list_price %></td>
-      <td><%= product.sell_price %></td>
       <td><%= strip_tags(product.specification).truncate(100) %></td>
-      <td><%= product.updated_at %></td>
       <td>
         <%= link_to "編輯", edit_admin_product_path(product), class: 'button is-light is-small' %>
         <%= link_to "刪除", admin_product_path(product), method: :delete, data: {confirm: '確認刪除?!'}, class: 'button is-danger is-small' %>
