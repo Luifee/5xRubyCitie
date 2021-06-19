@@ -25,7 +25,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     if @product.update(product_params)
-      redirect_to edit_admin_product_path(@product), notice: '商品資料已更新'
+      redirect_to admin_products_path, notice: '商品資料已更新'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class Admin::ProductsController < Admin::BaseController
 
   private
 
-  def find_poduct
+  def find_product
     @product = Product.find(params[:id])
   end
 
