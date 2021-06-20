@@ -52,9 +52,19 @@
   </div>
   <hr />
   <h2 class="subtitle">庫存項目</h2>
-  <%= form.fields_for :skus do |sku_form| %>
-    <%= render 'sku_fields', form: sku_form %>
-  <% end %>
+  <div data-controller="product-subtype">
+    <template data-product-subtype-target="template">
+      <%= form.fields_for :skus, Sku.new, child_index: 'New_data' do |sku| %>
+        <%= render 'sku_fields', form: sku %>
+      <% end %>
+    </template>
+    <%= form.fields_for :skus do |sku_form| %>
+      <%= render 'sku_fields', form: sku_form %>
+    <% end %>
+    <div data-product-subtype-target="adding">
+      <%= link_to "新增款式", '#', class: 'button is-lishgt is-small', data: {action: 'product-subtype#add_sku'} %>
+    </div>
+  </div>
 
   <%= form.submit class: 'button is-primary is-medium' %>
 <% end %>

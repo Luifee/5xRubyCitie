@@ -18,3 +18,4 @@ import "scripts/shared";
 
 require("trix")
 require("@rails/actiontext")
+import "controllers"
