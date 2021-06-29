@@ -9,7 +9,7 @@ export default class extends Controller {
 
     let email = this.emailTarget.value.trim();
     let data = new FormData();
-    data.append("subscribe['email']", email);
+    data.append("subscribe[email]", email);
 
     Rails.ajax({
       url: '/api/v1/subscribe',
