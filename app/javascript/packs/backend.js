@@ -6,9 +6,9 @@ import * as ActiveStorage from "@rails/activestorage"
 require("trix")
 require("@rails/actiontext")
 
-// Rails.start()
-// Turbolinks.start()
-// ActiveStorage.start()
+ Rails.start()
+ Turbolinks.start()
+ ActiveStorage.start()
 
 import "controllers";
 
