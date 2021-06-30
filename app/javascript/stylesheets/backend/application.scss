@@ -1,5 +1,13 @@
-@import 'bulma-carousel';
+//category to be sortable
+.sortable-items {
+  .item {
+    cursor: pointer;
+  }
+}
 
+.sortable-drag {
+  background-color: #f1f1f1;
+}
 
 //index
 nav {
