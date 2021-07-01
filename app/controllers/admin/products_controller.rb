@@ -46,11 +46,13 @@ class Admin::ProductsController < Admin::BaseController
   def product_params
     params.require(:product).permit(:name, 
 				    :vendor_id, 
+				    :category_id,
 				    :list_price, 
 				    :sell_price, 
 				    :specification, 
 				    :description,
 				    :on_sell,
+				    :cover_image,
 				    skus_attributes: [
 				      :id, :subtype, :quantity, :_destroy
 				    ])

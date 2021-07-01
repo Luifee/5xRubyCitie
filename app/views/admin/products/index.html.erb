@@ -6,8 +6,9 @@
     <tr>
       <th>商品名稱</th>
       <th>供應商</th>
+      <th>分類</th>
       <th>售價 / 定價</th>
-      <th>銷售狀態</th>
+      <th>是否上架</th>
       <th>商品規格</th>
       <th></th>
     </tr>
@@ -17,6 +18,7 @@
     <tr>
       <td><span class="is-size-7">[商品編號：<%= product.code %> ]</span><br /><%= link_to "#{product.name}", edit_admin_product_path(product) %></td>
       <td><%= product.vendor.title %></td>
+      <td><%= product.category.name %></td>
       <td><%= product.sell_price %> / <%= product.list_price %></td>
       <td><%= product.on_sell %></td>
       <td><%= strip_tags(product.specification).truncate(100) %></td>
