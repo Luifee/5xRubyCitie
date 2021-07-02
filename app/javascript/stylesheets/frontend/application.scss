@@ -1,6 +1,5 @@
 @import 'bulma-carousel';
 
-
 //index
 nav {
   .navbar-brand {
@@ -47,6 +46,9 @@ section.footer {
 
 section.product {
   margin-top: 1em;
+  .list_price{
+    text-decoration: line-through;
+  }
 }
 
 section.registration, section.session {
