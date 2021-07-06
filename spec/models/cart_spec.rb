@@ -30,10 +30,6 @@ RSpec.describe Cart, type: :model do
       expect(cart.items.first.product).to be_a Product
     end
 
-    it "每個 Cart Item 都可以計算它自己的金額（小計）" do
-
-    end
-
     it "可以計算整台購物車的總消費金額" do
 
     end
