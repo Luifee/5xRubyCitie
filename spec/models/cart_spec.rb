@@ -31,7 +31,14 @@ RSpec.describe Cart, type: :model do
     end
 
     it "可以計算整台購物車的總消費金額" do
+      cart = Cart.new
+      p1 = FactoryBot.create(:product, sell_price: 7)
+      p2 = FactoryBot.create(:product, sell_price: 3)
 
+      3.times { cart.add_item(p1.id) }
+      2.times { cart.add_item(p2.id) }
+
+      expect(cart.total_price).to eq 27
     end
 
     it "特別活動可搭配折扣（例如全面9折或滿額送百或滿額免運費）" do
