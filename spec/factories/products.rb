@@ -1,12 +1,11 @@
 FactoryBot.define do
   factory :product do
-    name { "MyString" }
-    vendor { nil }
-    list_price { "9.99" }
-    sell_price { "9.99" }
+    name { Faker::Name.name }
+    vendor
+    category
+    list_price { Faker::Number.between(from: 100, to: 999) }
+    sell_price { Faker::Number.between(from: 1, to: 99) }
     specification { "MyString" }
     on_sell { false }
-    code { "MyString" }
-    deleted_at { "" }
   end
 end
