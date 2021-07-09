@@ -2,16 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
 
+  let(:cart) { Cart.new }
+
   describe "基本功能" do
+
     it "可以把商品丟到到購物車裡，然後購物車裡就有東西" do
-      cart = Cart.new
       cart.add_item(100)
 
-      expect(cart.empty?).to be false
+      # expect(cart.empty?).to be false
+      expect(cart).not_to be_empty
     end
 
     it "加了相同商品到購物車，購買項目CartItem不會增加，但商品數量會改變" do
-      cart = Cart.new
       3.times { cart.add_item(199) }
       2.times { cart.add_item(198) }
 
@@ -21,7 +23,6 @@ RSpec.describe Cart, type: :model do
     end
 
     it "商品可以放到購物車裡，也可以再拿出來" do
-      cart = Cart.new
       # v1 = Vendor.create(title: '1stvendor')
       # p1 = Product.create(name: '1stproduct', list_price: 10, sell_price: 9, vendor: v1)
       p1 = FactoryBot.create(:product)
@@ -31,7 +32,6 @@ RSpec.describe Cart, type: :model do
     end
 
     it "可以計算整台購物車的總消費金額" do
-      cart = Cart.new
       p1 = FactoryBot.create(:product, sell_price: 7)
       p2 = FactoryBot.create(:product, sell_price: 3)
 
@@ -49,7 +49,6 @@ RSpec.describe Cart, type: :model do
 
   describe "進階功能" do
     it "可以將購物車內容轉換成 Hash 並存到 Session 裡" do
-      cart = Cart.new
       p1 = FactoryBot.create(:product)
       p2 = FactoryBot.create(:product)
 
