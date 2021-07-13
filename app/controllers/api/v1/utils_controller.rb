@@ -11,4 +11,23 @@ class Api::V1::UtilsController < ApplicationController
     end
   end
 
+  def cart
+    product = Product.friendly.find(params[:id])
+
+    if product
+    cart = Cart.load_session(session[:cart_temp])
+    cart.add_item(product.code)
+
+    session[:cart_temp] = cart.serialize
+
+    render json: { status: 'added', items: cart.items.count }
+    end
+  end
+
+  private
+
+  def find_product
+    product = Product.friendly.find(params[:id])
+  end
+
 end
