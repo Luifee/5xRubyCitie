@@ -1,0 +1,32 @@
+<section class="cart container">
+  <h2 class="title">購物車</h2>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th></th>
+        <th>品名</th>
+        <th>數量</th>
+        <th>單價</th>
+        <th>小計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_cart.items.each do |item| %>
+      <tr>
+        <td></td>
+	<td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+	<td><%= item.product.sell_price %></td>
+        <td><%= item.total_price %></td>
+      </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"></td>
+        <td>總計</td>
+        <td><%= current_cart.total_price %></td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
