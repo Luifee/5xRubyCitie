@@ -6,13 +6,13 @@ class Cart
     @items = items
   end
 
-  def add_item(product_id, quantity = 1)
-    found = @items.find { |item| item.product_id == product_id }
+  def add_sku(sku_id, quantity = 1)
+    found = @items.find { |item| item.sku_id == sku_id }
 
     if found
       found.increment!
     else
-      @items << CartItem.new(product_id, quantity)
+      @items << CartItem.new(sku_id, quantity)
     end
   end
 
@@ -25,14 +25,14 @@ class Cart
   end
 
   def serialize
-    items = @items.map { |item| {"product_id" => item.product_id, "quantity" => item.quantity} }
+    items = @items.map { |item| {"sku_id" => item.sku_id, "quantity" => item.quantity} }
     { "items" => items }
   end
 
   def self.load_session(hash = nil)
     if hash && hash["items"]
       items = hash["items"].map { |item|
-        CartItem.new(item["product_id"], item["quantity"])
+        CartItem.new(item["sku_id"], item["quantity"])
       }
       Cart.new(items)
     else
