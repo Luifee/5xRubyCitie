@@ -3,3 +3,7 @@ google_app_secret: 'FZCZob_BFZlycJqHtsPeVYoZ'
 
 line_pay_id: '1656233882'
 line_pay_secret: '81e006aba803909a26ad2530be5ea00a'
+line_pay_server: 'https://sandbox-api-pay.line.me'
+line_pay_uri: '/v3/payments/request'
+line_psy_confirmUrl: 'https://localhost:3000/v3/confirm'
+line_pay_cancelUrl: 'https://localhost:3000/v3/cancel'

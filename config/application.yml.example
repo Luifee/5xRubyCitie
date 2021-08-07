@@ -3,3 +3,5 @@ google_app_secret: 'YOUR-APP-SECRET'
 
 line_pay_id: 'LINE_PAY_ID'
 line_pay_secret: 'LINE_PAY_SECRET'
+line_pay_server: 'LINE_PAY_SERVER_ADDRESS'
+line_pay_uri: 'LINE_PAY_URI'

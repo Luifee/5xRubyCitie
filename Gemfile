@@ -33,6 +33,7 @@ gem 'figaro', '~> 1.2'
 gem 'paranoia', '~> 2.4', '>= 2.4.3'
 gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 gem 'acts_as_list', '~> 1.0', '>= 1.0.4'
+gem 'faraday', '~> 1.5', '>= 1.5.1'
 
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
