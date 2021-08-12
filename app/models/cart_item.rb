@@ -16,6 +16,10 @@ class CartItem
     Product.joins(:skus).find_by(skus: { id: sku_id })
   end
 
+  def sku
+    Sku.find_by(skus: { id: sku_id })
+  end
+
   def total_price
     @quantity * product.sell_price
   end
