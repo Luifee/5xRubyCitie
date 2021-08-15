@@ -11,17 +11,21 @@ class OrdersController < ApplicationController
 
     if @order.save
       nonce = SecureRandom.uuid + Time.now.to_i.to_s
-      resp = Faraday.post("#{ENV['line_pay_server']}" + "#{ENV['line_pay_uri']}") do |req|
+      url = ENV['line_pay_server'] + ENV['line_pay_uri']
+      prods = []
+      @order.order_items.each do |list|
+        pack = { name: list.name, quantity: list.quantity, price: list.price.to_i }
+        prods << pack
+      end
+      resp = Faraday.post(url) do |req|
         req.headers['Content-Type'] = 'application/json'
 	req.headers['X-LINE-ChannelId'] = ENV['line_pay_id']
 	req.headers['X-LINE-Authorization-Nonce'] = nonce
 	req.body = {
 	  amount: current_cart.total_price.to_i, currency: "TWD", orderId: @order.num,
 	  packages:[{
-  	    id: "包裹編號", amount: current_cart.total_price.to_i, 
-	    products:[{
-	      name: "產品名稱", quantity: "購買數量", price: current_cart.total_price.to_i
-	    }]
+  	    id: @order.num, amount: current_cart.total_price.to_i, 
+	    products: prods
 	  }],
 	  redirectUrls:{
 	    confirmUrl: "#{ENV['line_pay_confirmUrl']}",
@@ -37,8 +41,8 @@ class OrdersController < ApplicationController
         payment_url = result["info"]["paymentUrl"]["web"]
 	redirect_to payment_url
       else
-        flash[:notice] = '交易中斷，錯誤訊息：' + result["returnCode"]
-	render 'carts/checkout'
+	redirect_to '/cart/checkout'
+	flash[:notice] = '交易中斷，錯誤訊息：' + result["returnCode"]
       end
     end
   end
