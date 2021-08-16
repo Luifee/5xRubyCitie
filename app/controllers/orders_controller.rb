@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
         pack = { name: list.name, quantity: list.quantity, price: list.price.to_i }
         prods << pack
       end
+
       resp = Faraday.post(url) do |req|
         req.headers['Content-Type'] = 'application/json'
 	req.headers['X-LINE-ChannelId'] = ENV['line_pay_id']
@@ -28,8 +29,8 @@ class OrdersController < ApplicationController
 	    products: prods
 	  }],
 	  redirectUrls:{
-	    confirmUrl: "#{ENV['line_pay_confirmUrl']}",
-	    cancelUrl: "#{ENV['line_pay_cancelUrl']}"
+	    confirmUrl: "https://localhost:3000/orders/confirm",
+	    cancelUrl: "https://localhost:3000/orders/cancel"
 	  }
 	}.to_json
 	req.headers['X-LINE-Authorization'] = Base64.encode64(OpenSSL::HMAC.digest("SHA256", ENV['line_pay_secret'], ENV['line_pay_secret'] + ENV['line_pay_uri'] + req.body + nonce)).gsub(/\n/,"")
@@ -44,6 +45,31 @@ class OrdersController < ApplicationController
 	redirect_to '/cart/checkout'
 	flash[:notice] = '交易中斷，錯誤訊息：' + result["returnCode"]
       end
+    end
+  end
+
+  def confirm
+    nonce = SecureRandom.uuid + Time.now.to_i.to_s
+    uri = "/v3/payments/#{params[:transactionId]}/confirm"
+    url = ENV['line_pay_server'] + uri
+    resp = Faraday.post(url) do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['X-LINE-ChannelId'] = ENV['line_pay_id']
+      req.headers['X-LINE-Authorization-Nonce'] = nonce
+      req.body = {
+        amount: current_cart.total_price.to_i, currency: "TWD"
+      }.to_json
+      req.headers['X-LINE-Authorization'] = Base64.encode64(OpenSSL::HMAC.digest("SHA256", ENV['line_pay_secret'], ENV['line_pay_secret'] + uri + req.body + nonce)).gsub(/\n/,"")
+    end
+    
+    result = JSON.parse(resp.body)
+
+    if result["returnCode"] == "0000"
+      
+      redirect_to root_path, notice: '付款完成'
+    else
+      redirect_to '/cart/checkout'
+      flash[:notice] = '付款中斷，錯誤訊息：' + result["returnCode"] + "，" + result["returnMessage"]
     end
   end
 

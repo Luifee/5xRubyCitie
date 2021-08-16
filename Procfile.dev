@@ -1,2 +1,2 @@
-web: bin/rails server -p 3000
+web: bin/rails server -b 'ssl://localhost:3000?key=localhost.key&cert=localhost.crt' -p 3000
 webpacker: bin/webpack-dev-server
