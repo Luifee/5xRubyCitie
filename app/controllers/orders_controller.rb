@@ -2,6 +2,10 @@ class OrdersController < ApplicationController
 
   before_action :authenticate_user!
 
+  def index
+    @orders = current_user.orders.order(id: :desc)
+  end
+
   def create
     @order = current_user.orders.build(order_params)
 
@@ -14,7 +18,7 @@ class OrdersController < ApplicationController
       url = ENV['line_pay_server'] + ENV['line_pay_uri']
       prods = []
       @order.order_items.each do |list|
-        pack = { name: list.name, quantity: list.quantity, price: list.price.to_i }
+        pack = { name: list.name, quantity: list.quantity, price: list.total_price.to_i }
         prods << pack
       end
 

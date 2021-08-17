@@ -14,8 +14,8 @@ class OrderItem < ApplicationRecord
     product.name + "(" + sku.subtype + ")"
   end
 
-  def price
-    quantity * product.sell_price
+  def total_price
+    quantity * sku.product.sell_price
   end
 
 end

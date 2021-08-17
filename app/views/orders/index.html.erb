@@ -1,0 +1,28 @@
+<section class="container orders">
+  <h1 class="title">訂單紀錄</h1>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>訂單編號</th>
+	<th>金額</th>
+	<th>交易狀態</th>
+	<th>選項</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |list| %>
+      <tr>
+        <td><%= list.created_at %></td>
+	<td><%= list.num %></td>
+	<td><%= list.total_price.to_i %></td>
+	<td><%= list.status %></td>
+	<td>
+	  <%= link_to "付款", '#', class:'button is-info is-small' if list.may_pay? %>
+	  <%= link_to "取消訂單", '#', class:'button is-danger is-small' if list.may_cancel? %>
+	</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
