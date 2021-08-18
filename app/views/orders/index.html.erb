@@ -19,7 +19,7 @@
 	<td><%= list.status %></td>
 	<td>
 	  <%= link_to "付款", '#', class:'button is-info is-small' if list.may_pay? %>
-	  <%= link_to "取消訂單", '#', class:'button is-danger is-small' if list.may_cancel? %>
+	  <%= link_to "取消訂單", cancel_order_path(list), method: 'delete', data: {confirm: "確認取消此筆訂單？\n若訂單已付款，將逕行退費。"}, class:'button is-danger is-small' if list.may_cancel? %>
 	</td>
       </tr>
       <% end %>

@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     collection do
       get :confirm
     end
+    member do
+      delete :cancel
+    end
   end
 
   namespace :admin do
