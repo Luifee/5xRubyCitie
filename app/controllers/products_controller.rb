@@ -8,6 +8,4 @@ class ProductsController < ApplicationController
     @product = Product.friendly.find(params[:id])
   end
 
-  private
-
 end

@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :find_order, only: [:cancel, :pay, :pay_confirm, :show]
 
   def index
-    @orders = current_user.orders.order(id: :desc)
+    @orders = current_user.orders.order(created_at: :desc).includes(:order_items).take(10)
   end
 
   def create
@@ -70,8 +71,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def cancel
-    @order = current_user.orders.find(params[:id])
     if @order.paid?
       uri = "/v3/payments/#{@order.transaction_id}/refund"
       url = ENV['line_pay_server'] + uri
@@ -92,6 +95,55 @@ class OrdersController < ApplicationController
     end
   end
 
+  def pay
+    uri = ENV['line_pay_uri']
+    url = ENV['line_pay_server'] + uri
+    prods = []
+    @order.order_items.each do |list|
+      pack = { name: list.name, quantity: list.quantity, price: list.total_price.to_i }
+      prods << pack
+    end
+    body = {
+      amount: @order.total_price.to_i, currency: "TWD", orderId: @order.num,
+      packages:[{
+        id: @order.num, amount: @order.total_price.to_i, products: prods
+      }],
+      redirectUrls:{
+        confirmUrl: "https://localhost:3000/orders/#{@order.id}/pay_confirm",
+        cancelUrl: "https://localhost:3000/orders/#{@order.id}/pay_cancel"
+      }
+    }
+    resp = line_auth(url, body, uri)
+
+    result = JSON.parse(resp.body)
+
+    if result["returnCode"] == "0000"
+      payment_url = result["info"]["paymentUrl"]["web"]
+      redirect_to payment_url
+    else
+      redirect_to orders_path, notice: '交易中斷，錯誤訊息：' + result["returnCode"]
+    end
+  end
+
+  def pay_confirm
+    uri = "/v3/payments/#{params[:transactionId]}/confirm"
+    url = ENV['line_pay_server'] + uri
+    body = {amount: @order.total_price.to_i, currency: "TWD"}
+    resp = line_auth(url, body, uri)
+
+    result = JSON.parse(resp.body)
+
+    if result["returnCode"] == "0000"
+      transaction_id = result["info"]["transactionId"]
+      # 變更order狀態
+      @order.pay!(transaction_id: transaction_id)
+
+      redirect_to orders_path, notice: '付款完成'
+    else
+      redirect_to orders_path, notice: "付款中斷，錯誤訊息：" + result["returnCode"] + "，" + result["returnMessage"]
+    end
+  end
+
   def line_auth(url, body, uri)
     nonce = SecureRandom.uuid + Time.now.to_i.to_s
     Faraday.post(url) do |req|
@@ -107,6 +159,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:receipient, :tel, :address, :note)
+  end
+
+  def find_order
+    @order = current_user.orders.find(params[:id])
   end
 
 end
